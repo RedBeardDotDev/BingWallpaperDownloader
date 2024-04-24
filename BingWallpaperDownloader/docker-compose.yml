@@ -4,7 +4,7 @@ services:
   bing-wallpaper-downloader:
     build: .
     volumes:
-      - $(PWD):/downloads
+      - ./:/downloads
     environment:
       - LOG_TO_CONSOLE=true
       - TARGET_DIR=/downloads
