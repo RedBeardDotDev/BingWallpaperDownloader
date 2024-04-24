@@ -12,7 +12,7 @@ namespace BingWallpaperDownloader.Logic {
         }
 
         public static async Task LogMeAsync() {
-          await  LogAsync(LogLevel.Debug);
+            await LogAsync(LogLevel.Debug);
         }
 
         public static async Task LogCriticalAsync(string message, params object[] args) {
@@ -51,7 +51,7 @@ namespace BingWallpaperDownloader.Logic {
                 Message = msg
             };
 
-            if (BingWallpaperOptions.LogToConsole) {
+            if (BWDOptions.LogToConsole) {
                 var currColor = Console.ForegroundColor;
 
                 switch (level) {
@@ -73,8 +73,8 @@ namespace BingWallpaperDownloader.Logic {
                 Console.ForegroundColor = currColor;
             }
 
-            if (BingWallpaperOptions.LogToDb) {
-                using var db = new BingDbContext();
+            if (BWDOptions.LogToDb) {
+                using var db = new BWDDbContext();
 
                 await db.LogMessages.AddAsync(logMessage);
                 await db.SaveChangesAsync();

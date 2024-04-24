@@ -1,6 +1,6 @@
 ﻿namespace BingWallpaperDownloader.Logic {
 
-    public static class BingWallpaperOptions {
+    public static class BWDOptions {
         public static bool LogToConsole { get; set; } = true;
         public static bool LogToDb { get; set; } = true;
 

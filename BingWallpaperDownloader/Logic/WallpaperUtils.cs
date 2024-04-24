@@ -1,13 +1,12 @@
 ﻿using BingWallpaperDownloader.Data;
 using BingWallpaperDownloader.Models;
 using Newtonsoft.Json;
-using System.Timers;
 
 namespace BingWallpaperDownloader.Logic {
 
     public static class WallpaperUtils {
 
-        public static async Task RequestWallpaper() {
+        public static async Task DownloadWallpaperAsync() {
             await Logger.LogAsync("Requesting wallpaper");
             using var wc = new HttpClient();
 
@@ -25,7 +24,7 @@ namespace BingWallpaperDownloader.Logic {
                 return;
             }
 
-            using var db = new BingDbContext();
+            using var db = new BWDDbContext();
             await db.WallpaperResponses.AddAsync(wallpaperObject);
             await db.SaveChangesAsync();
 
@@ -48,10 +47,9 @@ namespace BingWallpaperDownloader.Logic {
                 var query = System.Web.HttpUtility.ParseQueryString(url.Query);
                 var filename = query["id"] ?? $"{Path.GetRandomFileName()}.jpg";
 
-                var destination = Path.Combine(BingWallpaperOptions.TargetFolder,filename);
+                var destination = Path.Combine(BWDOptions.TargetFolder, filename);
 
                 File.WriteAllBytes(destination, bytes);
-
 
                 var Download = new DownloadedFile() {
                     Filename = destination,

@@ -3,16 +3,17 @@
 using BingWallpaperDownloader.Data;
 using BingWallpaperDownloader.Logic;
 
-using var db = new BingDbContext();
+using var db = new BWDDbContext();
 await db.Database.EnsureCreatedAsync();
 
 // initialise settings based on environment variables.
-await BingWallpaperOptions.InitializeOptionsAsync();
+await BWDOptions.InitializeOptionsAsync();
 
-while (!BingWallpaperOptions.StopRunning) {
-    await WallpaperUtils.RequestWallpaper();
+while (!BWDOptions.StopRunning) {
+    await Logger.LogAsync("Starting a Download cycle..");
+    await WallpaperUtils.DownloadWallpaperAsync();
 
-    Thread.Sleep((int) BingWallpaperOptions.CheckFrequency.TotalMilliseconds);
+    Thread.Sleep((int)BWDOptions.CheckFrequency.TotalMilliseconds);
 }
 
 await Logger.LogAsync("Exiting Program");

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BingWallpaperDownloader.Data {
 
-    public class BingDbContext : DbContext {
+    public class BWDDbContext : DbContext {
         public DbSet<Image> Images => Set<Image>();
         public DbSet<Tooltips> Tooltips => Set<Tooltips>();
         public DbSet<WallpaperResponse> WallpaperResponses => Set<WallpaperResponse>();
