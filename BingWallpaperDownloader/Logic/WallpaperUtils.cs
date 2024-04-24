@@ -1,5 +1,4 @@
-﻿using BingWallpaperDownloader.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace BingWallpaperDownloader.Logic {
 
@@ -7,9 +6,10 @@ namespace BingWallpaperDownloader.Logic {
 
         public static async Task DownloadWallpaperAsync() {
             Logger.Log("Requesting wallpaper");
-            using var wc = new HttpClient();
+            using var client = new HttpClient();
 
-            var response = await wc.GetStringAsync("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
+            var source = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US";
+            var response = await client.GetStringAsync(source);
 
             if (string.IsNullOrEmpty(response)) {
                 Logger.Log("Response not received from wallpaper request");
@@ -48,11 +48,11 @@ namespace BingWallpaperDownloader.Logic {
 
                 Logger.Log($"Downloading wallpaper from: {url}");
 
-                var bytes = await wc.GetByteArrayAsync(url);
+                var bytes = await client.GetByteArrayAsync(url);
 
                 // Try to get the filename from the URL/
                 //      "url": "/th?id=OHR.TrilliumOntario_EN-US5180679465_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
-            
+
                 Logger.Log($"Saving wallpaper as {destination}");
 
                 File.WriteAllBytes(destination, bytes);
