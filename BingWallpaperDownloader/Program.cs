@@ -9,4 +9,3 @@ await db.Database.EnsureCreatedAsync();
 // initialise settings based on environment variables.
 BingWallpaperOptions.InitializeOptions();
 
-Console.WriteLine("Hello, World!");
