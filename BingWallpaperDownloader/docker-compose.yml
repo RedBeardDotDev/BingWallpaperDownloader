@@ -3,9 +3,9 @@ services:
   bing-wallpaper-downloader:
     build: .
     volumes:
-      - ./:/downloads
+      - ./:/app/download
     environment:
       - LOG_TO_CONSOLE=true
-      - TARGET_DIR=/downloads
+      - TARGET_DIR=/app
       - CHECK_FREQUENCY_HOURS=24
       - LOG_CODE_VALUES=false

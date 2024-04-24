@@ -3,7 +3,7 @@
     public static class BWDOptions {
         public static bool LogToConsole { get; set; } = true;
 
-        public static string TargetFolder { get; set; } = Environment.CurrentDirectory;
+        public static string TargetFolder { get; set; } = $"{Environment.CurrentDirectory}/download";
 
         public static int CheckFrequencyHours { get; set; } = 24;
         public static TimeSpan CheckFrequency => TimeSpan.FromHours(CheckFrequencyHours);
@@ -24,7 +24,7 @@
             }
 
             // set target folder
-            var target_folder =  Environment.GetEnvironmentVariable("TARGET_FOLDER");
+            var target_folder = Environment.GetEnvironmentVariable("TARGET_FOLDER");
 
             if (!string.IsNullOrEmpty(target_folder)) {
                 var dir = new DirectoryInfo(target_folder);
