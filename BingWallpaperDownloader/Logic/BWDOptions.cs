@@ -11,6 +11,8 @@
 
         public static bool StopRunning { get; set; } = false;
 
+        public static bool LogCodeValues { get; set; } = false;
+
         public static async Task InitializeOptionsAsync() {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_DB"))) {
                 if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_TO_DB"), out var log_to_db)) {
@@ -55,6 +57,17 @@
                 }
             } else {
                 await Logger.LogAsync($"Environment variable CHECK_FREQUENCY_HOURS not set. Using the value: {CheckFrequencyHours} hours");
+            }
+
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_CODE_VALUES"))) {
+                if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_CODE_VALUES"), out var log_code_values)) {
+                    LogCodeValues = log_code_values;
+                } else {
+                    await Logger.LogErrorAsync($"Unable to get a valid value for LOG_CODE_VALUES: {log_code_values}");
+                }
+            }else {
+                await Logger.LogAsync($"Environment variable LOG_CODE_VALUES not set. Using the value: false");
             }
         }
     }
