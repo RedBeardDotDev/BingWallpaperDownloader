@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BingWallpaperDownloader": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
