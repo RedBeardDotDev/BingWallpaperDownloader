@@ -1,5 +1,4 @@
-﻿using BingWallpaperDownloader.Data;
-using BingWallpaperDownloader.Models;
+﻿using BingWallpaperDownloader.Models;
 using Microsoft.Extensions.Logging;
 
 namespace BingWallpaperDownloader.Logic {
@@ -11,35 +10,35 @@ namespace BingWallpaperDownloader.Logic {
             _logger = log;
         }
 
-        public static async Task LogMeAsync() {
-            await LogAsync(LogLevel.Debug);
+        public static void LogMe() {
+            Log(LogLevel.Debug);
         }
 
-        public static async Task LogCriticalAsync(string message, params object[] args) {
-            await LogAsync(LogLevel.Critical, message, args);
+        public static void LogCritical(string message, params object[] args) {
+            Log(LogLevel.Critical, message, args);
         }
 
-        public static async Task LogInformationAsync(string message, params object[] args) {
-            await LogAsync(LogLevel.Information, message, args);
+        public static void LogInformation(string message, params object[] args) {
+            Log(LogLevel.Information, message, args);
         }
 
-        public static async Task LogWarningAsync(string message, params object[] args) {
-            await LogAsync(LogLevel.Warning, message, args);
+        public static void LogWarning(string message, params object[] args) {
+            Log(LogLevel.Warning, message, args);
         }
 
-        public static async Task LogErrorAsync(string message, params object[] args) {
-            await LogAsync(LogLevel.Error, message, args);
+        public static void LogError(string message, params object[] args) {
+            Log(LogLevel.Error, message, args);
         }
 
-        public static async Task LogDebugAsync(string message, params object[] args) {
-            await LogAsync(LogLevel.Debug, message, args);
+        public static void LogDebug(string message, params object[] args) {
+            Log(LogLevel.Debug, message, args);
         }
 
-        public static async Task LogAsync(string message) {
-            await LogAsync(LogLevel.Information, message);
+        public static void Log(string message) {
+            Log(LogLevel.Information, message);
         }
 
-        private static async Task LogAsync(LogLevel level, string? msg = null, params object[] args) {
+        private static void Log(LogLevel level, string? msg = null, params object[] args) {
             if (msg == null) {
                 msg = string.Empty;
             }
@@ -71,13 +70,6 @@ namespace BingWallpaperDownloader.Logic {
                 Console.WriteLine(logMessage.ToString());
 
                 Console.ForegroundColor = currColor;
-            }
-
-            if (BWDOptions.LogToDb) {
-                using var db = new BWDDbContext();
-
-                await db.LogMessages.AddAsync(logMessage);
-                await db.SaveChangesAsync();
             }
         }
 

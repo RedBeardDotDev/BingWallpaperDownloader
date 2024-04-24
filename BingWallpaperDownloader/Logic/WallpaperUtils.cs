@@ -1,5 +1,4 @@
-﻿using BingWallpaperDownloader.Data;
-using BingWallpaperDownloader.Models;
+﻿using BingWallpaperDownloader.Models;
 using Newtonsoft.Json;
 
 namespace BingWallpaperDownloader.Logic {
@@ -7,35 +6,31 @@ namespace BingWallpaperDownloader.Logic {
     public static class WallpaperUtils {
 
         public static async Task DownloadWallpaperAsync() {
-            await Logger.LogAsync("Requesting wallpaper");
+            Logger.Log("Requesting wallpaper");
             using var wc = new HttpClient();
 
             var response = await wc.GetStringAsync("https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US");
 
             if (string.IsNullOrEmpty(response)) {
-                await Logger.LogAsync("Response not received from wallpaper request");
+                Logger.Log("Response not received from wallpaper request");
                 return;
             }
 
             var wallpaperObject = JsonConvert.DeserializeObject<WallpaperResponse>(response);
 
             if (wallpaperObject == null) {
-                await Logger.LogAsync($"Unable to parse a valid wallpaper response for request: {response}");
+                Logger.Log($"Unable to parse a valid wallpaper response for request: {response}");
                 return;
             }
 
-            using var db = new BWDDbContext();
-            await db.WallpaperResponses.AddAsync(wallpaperObject);
-            await db.SaveChangesAsync();
-
             if (wallpaperObject.Images == null) {
-                await Logger.LogWarningAsync("No images returned");
+                Logger.LogWarning("No images returned");
                 return;
             }
 
             foreach (var image in wallpaperObject.Images) {
                 if (image.Url == null) {
-                    await Logger.LogErrorAsync($"There is no url to download for the image: {image}");
+                    Logger.LogError($"There is no url to download for the image: {image}");
                     continue;
                 }
 
@@ -55,9 +50,6 @@ namespace BingWallpaperDownloader.Logic {
                     Filename = destination,
                     WallpaperResponse = wallpaperObject
                 };
-
-                await db.DownloadedFiles.AddAsync(Download);
-                await db.SaveChangesAsync();
             }
         }
     }

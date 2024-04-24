@@ -9,9 +9,6 @@ The source URL is:
 
 The following variables can be used to control the application:
 
-- LOG_TO_DB
-  - Whether or not logging is added to the database
-  - Default: true
 - LOG_TO_CONSOLE 
   - Whether or not logging is sent to the console
   - Default: true
@@ -21,6 +18,9 @@ The following variables can be used to control the application:
 - CHECK_FREQUENCY_HOURS
   - The number of hours between each check
   - Default: 24
+- LOG_CODE_VALUES
+  - Whether or not to add code method, line, position, etc. to Log messages
+  - Default: false
 
 ## Sample Response
 
