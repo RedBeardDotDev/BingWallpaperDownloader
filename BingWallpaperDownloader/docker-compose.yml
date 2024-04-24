@@ -6,7 +6,7 @@ services:
     volumes:
       - $(PWD):/downloads
     environment:
-      - TARGET_DIR=/downloads
-      - LOG_TO_FILE=true
       - LOG_TO_CONSOLE=true
+      - TARGET_DIR=/downloads
       - CHECK_FREQUENCY_HOURS=24
+      - LOG_CODE_VALUES=false
