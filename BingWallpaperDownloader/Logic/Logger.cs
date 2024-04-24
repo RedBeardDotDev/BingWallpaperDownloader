@@ -81,7 +81,7 @@ namespace BingWallpaperDownloader.Logic {
             }
         }
 
-        public static async Task LogProgressAsync(string message, int linesFromBottom = 0) {
+        public static void LogProgress(string message, int linesFromBottom = 0) {
             var originalPos = Console.CursorTop;
             var newPos = Console.WindowHeight - (linesFromBottom + 1);
 
