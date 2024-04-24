@@ -8,3 +8,8 @@ await db.Database.EnsureCreatedAsync();
 
 // initialise settings based on environment variables.
 BingWallpaperOptions.InitializeOptions();
+
+
+var cts = new CancellationTokenSource();
+
+TaskLogic.RecurringTask(async () => await WallpaperUtils.RequestWallpaper(), cts.Token);
