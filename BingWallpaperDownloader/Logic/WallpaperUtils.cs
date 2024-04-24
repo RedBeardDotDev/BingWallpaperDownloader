@@ -34,22 +34,31 @@ namespace BingWallpaperDownloader.Logic {
                     continue;
                 }
 
-                var url = new Uri(image.Url);
-
-                var bytes = await wc.GetByteArrayAsync(url);
-
-                //      "url": "/th?id=OHR.TrilliumOntario_EN-US5180679465_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+                var url = new Uri($"https://bing.com/{image.Url.TrimStart('/')}");
                 var query = System.Web.HttpUtility.ParseQueryString(url.Query);
                 var filename = query["id"] ?? $"{Path.GetRandomFileName()}.jpg";
 
                 var destination = Path.Combine(BWDOptions.TargetFolder, filename);
 
+
+                if (File.Exists(destination)) {
+                    Logger.Log($"Destionation file already exists. Not downloading again: {destination}");
+                    return;
+                }
+
+                Logger.Log($"Downloading wallpaper from: {url}");
+
+                var bytes = await wc.GetByteArrayAsync(url);
+
+                // Try to get the filename from the URL/
+                //      "url": "/th?id=OHR.TrilliumOntario_EN-US5180679465_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+            
+                Logger.Log($"Saving wallpaper as {destination}");
+
                 File.WriteAllBytes(destination, bytes);
 
-                var Download = new DownloadedFile() {
-                    Filename = destination,
-                    WallpaperResponse = wallpaperObject
-                };
+
+                Logger.Log("File download complete.");
             }
         }
     }

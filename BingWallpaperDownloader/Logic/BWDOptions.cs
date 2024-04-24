@@ -24,11 +24,13 @@
             }
 
             // set target folder
-            var target_folder = Environment.GetEnvironmentVariable("TARGET_FOLDER");
+            var target_folder =  Environment.GetEnvironmentVariable("TARGET_FOLDER");
 
             if (!string.IsNullOrEmpty(target_folder)) {
-                if (Directory.Exists(target_folder)) {
-                    TargetFolder = target_folder;
+                var dir = new DirectoryInfo(target_folder);
+
+                if (dir.Exists) {
+                    TargetFolder = dir.FullName;
                 } else {
                     Logger.LogError($"Invalid optin for TARGET_FOLDER: {target_folder}");
                 }
