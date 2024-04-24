@@ -16,7 +16,7 @@
                     Logger.Log($"Invalid option for LOG_TO_FILE: {log_to_file}");
                 }
             } else {
-                Logger.Log("Environment variable LOG_TO_FILE not set");
+                Logger.Log($"Environment variable LOG_TO_FILE not set. Using the value: {LogToFile}");
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_CONSOLE"))) {
@@ -26,7 +26,7 @@
                     Logger.LogError($"Invalid option for LOG_TO_CONSOLE: {log_to_console}");
                 }
             } else {
-                Logger.Log("Environment variable LOG_TOCONSOLE not set");
+                Logger.Log($"Environment variable LOG_TO_CONSOLE not set. Using the value: {LogToConsole}");
             }
 
             // set target folder
@@ -39,7 +39,7 @@
                     Logger.LogError($"Invalid optin for TARGET_FOLDER: {target_folder}");
                 }
             } else {
-                Logger.Log("Environment variable TARGET_FOLDER not set");
+                Logger.Log($"Environment variable TARGET_FOLDER not set. Using the value: {TargetFolder}");
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS"))) {
@@ -51,7 +51,7 @@
                     }
                 }
             } else {
-                Logger.Log("Environment variable CHECK_FREQUENCY_HOURS not set");
+                Logger.Log($"Environment variable CHECK_FREQUENCY_HOURS not set. Using the value: {CheckFrequencyHours} hours");
             }
         }
     }
