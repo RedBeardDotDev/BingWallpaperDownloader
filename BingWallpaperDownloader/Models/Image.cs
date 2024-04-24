@@ -54,7 +54,7 @@ namespace BingWallpaperDownloader.Logic {
         public int? bot { get; set; }
 
         [JsonProperty("hs")]
-        public List<object>? hs { get; set; }
+        public List<string>? hs { get; set; }
 
         public override string ToString() {
             return JsonConvert.SerializeObject(this, Formatting.Indented);

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BingWallpaperDownloader.Models {
 
-    public class DownloadedFiles {
+    public class DownloadedFile {
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

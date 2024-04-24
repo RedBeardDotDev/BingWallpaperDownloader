@@ -2,21 +2,24 @@
 
     public static class BingWallpaperOptions {
         public static bool LogToConsole { get; set; } = true;
-        public static bool LogToFile { get; set; } = true;
+        public static bool LogToDb { get; set; } = true;
 
         public static string TargetFolder { get; set; } = Environment.CurrentDirectory;
 
         public static int CheckFrequencyHours { get; set; } = 24;
+        public static TimeSpan CheckFrequency => TimeSpan.FromHours(CheckFrequencyHours);
+
+        public static bool StopRunning { get; set; } = false;
 
         public static void InitializeOptions() {
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_FILE"))) {
-                if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_TO_FILE"), out var log_to_file)) {
-                    LogToFile = log_to_file;
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_DB"))) {
+                if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_TO_DB"), out var log_to_db)) {
+                    LogToDb = log_to_db;
                 } else {
-                    Logger.Log($"Invalid option for LOG_TO_FILE: {log_to_file}");
+                    Logger.Log($"Invalid option for LOG_TO_DB: {log_to_db}");
                 }
             } else {
-                Logger.Log($"Environment variable LOG_TO_FILE not set. Using the value: {LogToFile}");
+                Logger.Log($"Environment variable LOG_TO_DB not set. Using the value: {LogToDb}");
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_CONSOLE"))) {

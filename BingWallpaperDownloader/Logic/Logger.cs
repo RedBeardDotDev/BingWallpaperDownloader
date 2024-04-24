@@ -73,7 +73,7 @@ namespace BingWallpaperDownloader.Logic {
                 Console.ForegroundColor = currColor;
             }
 
-            if (BingWallpaperOptions.LogToFile) {
+            if (BingWallpaperOptions.LogToDb) {
                 using var db = new BingDbContext();
 
                 await db.LogMessages.AddAsync(logMessage);

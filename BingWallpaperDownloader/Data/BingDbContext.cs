@@ -9,6 +9,7 @@ namespace BingWallpaperDownloader.Data {
         public DbSet<Tooltips> Tooltips => Set<Tooltips>();
         public DbSet<WallpaperResponse> WallpaperResponses => Set<WallpaperResponse>();
         public DbSet<LogMessage> LogMessages => Set<LogMessage>();
+        public DbSet<DownloadedFile> DownloadedFiles => Set<DownloadedFile>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);

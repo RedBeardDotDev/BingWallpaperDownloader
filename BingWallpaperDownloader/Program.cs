@@ -10,6 +10,11 @@ await db.Database.EnsureCreatedAsync();
 BingWallpaperOptions.InitializeOptions();
 
 
-var cts = new CancellationTokenSource();
 
-TaskLogic.RecurringTask(async () => await WallpaperUtils.RequestWallpaper(), cts.Token);
+while (!BingWallpaperOptions.StopRunning) {
+    await WallpaperUtils.RequestWallpaper();
+
+    Thread.Sleep((int) BingWallpaperOptions.CheckFrequency.TotalMilliseconds);
+}
+
+Logger.Log("Exiting Program");
