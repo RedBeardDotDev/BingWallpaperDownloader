@@ -11,35 +11,35 @@ namespace BingWallpaperDownloader.Logic {
             _logger = log;
         }
 
-        public static void LogMe() {
-            Log(LogLevel.Debug);
+        public static async Task LogMeAsync() {
+          await  LogAsync(LogLevel.Debug);
         }
 
-        public static void LogCritical(string message, params object[] args) {
-            Log(LogLevel.Critical, message, args);
+        public static async Task LogCriticalAsync(string message, params object[] args) {
+            await LogAsync(LogLevel.Critical, message, args);
         }
 
-        public static void LogInformation(string message, params object[] args) {
-            Log(LogLevel.Information, message, args);
+        public static async Task LogInformationAsync(string message, params object[] args) {
+            await LogAsync(LogLevel.Information, message, args);
         }
 
-        public static void LogWarning(string message, params object[] args) {
-            Log(LogLevel.Warning, message, args);
+        public static async Task LogWarningAsync(string message, params object[] args) {
+            await LogAsync(LogLevel.Warning, message, args);
         }
 
-        public static void LogError(string message, params object[] args) {
-            Log(LogLevel.Error, message, args);
+        public static async Task LogErrorAsync(string message, params object[] args) {
+            await LogAsync(LogLevel.Error, message, args);
         }
 
-        public static void LogDebug(string message, params object[] args) {
-            Log(LogLevel.Debug, message, args);
+        public static async Task LogDebugAsync(string message, params object[] args) {
+            await LogAsync(LogLevel.Debug, message, args);
         }
 
-        public static void Log(string message) {
-            Log(LogLevel.Information, message);
+        public static async Task LogAsync(string message) {
+            await LogAsync(LogLevel.Information, message);
         }
 
-        private static async void Log(LogLevel level, string? msg = null, params object[] args) {
+        private static async Task LogAsync(LogLevel level, string? msg = null, params object[] args) {
             if (msg == null) {
                 msg = string.Empty;
             }
@@ -81,7 +81,7 @@ namespace BingWallpaperDownloader.Logic {
             }
         }
 
-        public static void LogProgress(string message, int linesFromBottom = 0) {
+        public static async Task LogProgressAsync(string message, int linesFromBottom = 0) {
             var originalPos = Console.CursorTop;
             var newPos = Console.WindowHeight - (linesFromBottom + 1);
 

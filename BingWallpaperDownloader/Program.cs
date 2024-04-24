@@ -7,9 +7,7 @@ using var db = new BingDbContext();
 await db.Database.EnsureCreatedAsync();
 
 // initialise settings based on environment variables.
-BingWallpaperOptions.InitializeOptions();
-
-
+await BingWallpaperOptions.InitializeOptionsAsync();
 
 while (!BingWallpaperOptions.StopRunning) {
     await WallpaperUtils.RequestWallpaper();
@@ -17,4 +15,4 @@ while (!BingWallpaperOptions.StopRunning) {
     Thread.Sleep((int) BingWallpaperOptions.CheckFrequency.TotalMilliseconds);
 }
 
-Logger.Log("Exiting Program");
+await Logger.LogAsync("Exiting Program");
