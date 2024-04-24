@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BingWallpaperDownloader.Logic;
+using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
@@ -66,7 +67,7 @@ namespace BingWallpaperDownloader.Models {
             var sb = new StringBuilder();
             sb.Append($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
 
-            if (Level == $"{LogLevel.Debug}") {
+            if (BWDOptions.LogCodeValues) {
                 sb.Append($"{Level?.ToUpper()}: {Filename}:{MethodName}:{LineNum}:{ColNum}:");
             }
 
