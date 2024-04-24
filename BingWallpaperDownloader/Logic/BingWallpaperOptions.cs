@@ -6,6 +6,8 @@
 
         public static string TargetFolder { get; set; } = Environment.CurrentDirectory;
 
+        public static int CheckFrequencyHours { get; set; } = 24;
+
         public static void InitializeOptions() {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_FILE"))) {
                 if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_TO_FILE"), out var log_to_file)) {
@@ -38,6 +40,18 @@
                 }
             } else {
                 Logger.Log("Environment variable TARGET_FOLDER not set");
+            }
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS"))) {
+                if (int.TryParse(Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS"), out var check_frequency_hours)) {
+                    if (check_frequency_hours < 1 || check_frequency_hours > (30 * 24)) {
+                        Logger.LogWarning($"CHECK_FREQUENCY HOURS should be in the range of 1..{30 * 24}");
+                    } else {
+                        CheckFrequencyHours = check_frequency_hours;
+                    }
+                }
+            } else {
+                Logger.Log("Environment variable CHECK_FREQUENCY_HOURS not set");
             }
         }
     }
