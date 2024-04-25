@@ -48,8 +48,8 @@ namespace BingWallpaperDownloader.Logic {
                     return;
                 }
 
-                if (!File.Exists(destination)) {
-                    Directory.CreateDirectory(destination);
+                if (!File.Exists(BWDOptions.TargetFolder)) {
+                    Directory.CreateDirectory(BWDOptions.TargetFolder);
                 }
 
                 Logger.Log($"Downloading wallpaper from: {url}");
