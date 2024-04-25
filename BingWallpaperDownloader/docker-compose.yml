@@ -2,10 +2,11 @@
 services:
   bing-wallpaper-downloader:
     build: .
+    user: "1000"
     volumes:
-      - ./:/app/download
+      - ./target:/app/target
     environment:
       - LOG_TO_CONSOLE=true
-      - TARGET_FOLDER=/app
+      - TARGET_FOLDER=/app/target
       - CHECK_FREQUENCY_HOURS=24
-      - LOG_CODE_VALUES=false
+      - LOG_CODE_VALUES=false ''

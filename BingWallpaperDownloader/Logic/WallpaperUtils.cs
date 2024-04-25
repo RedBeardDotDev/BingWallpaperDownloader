@@ -45,9 +45,13 @@ namespace BingWallpaperDownloader.Logic {
                     return;
                 }
 
-                if (!Directory.Exists(BWDOptions.TargetFolder)) {
+                var dir = new DirectoryInfo(BWDOptions.TargetFolder);
+
+                if (dir.Exists) {
+                    Logger.Log($"Destination directory already exists. We don't need to create it: {BWDOptions.TargetFolder}");
+                } else {
                     Logger.Log($"Directory doesn't exist, so creating it: {BWDOptions.TargetFolder}");
-                    Directory.CreateDirectory(BWDOptions.TargetFolder);
+                    dir.Create();
                 }
 
                 Logger.Log($"Downloading wallpaper from: {url}");
@@ -56,12 +60,17 @@ namespace BingWallpaperDownloader.Logic {
 
                 // Try to get the filename from the URL/
                 //      "url": "/th?id=OHR.TrilliumOntario_EN-US5180679465_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
+                try {
 
-                Logger.Log($"Saving wallpaper as {destination}");
+                    Logger.Log($"Saving wallpaper as {destination}");
 
-                File.WriteAllBytes(destination, bytes);
+                    File.WriteAllBytes(destination, bytes);
 
-                Logger.Log("File download complete.");
+                    Logger.Log("File download complete.");
+                } catch (UnauthorizedAccessException) {
+                    Logger.LogError($"There was a problem saving the file. Please check the target directory exists and you have access to it. On Linux under docker, the target directory might need to exist prior to the container being created.");
+                    Environment.Exit(1);
+                }
             }
         }
     }
