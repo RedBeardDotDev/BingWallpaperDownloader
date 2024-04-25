@@ -40,9 +40,6 @@ namespace BingWallpaperDownloader.Logic {
 
                 var destination = Path.Combine(BWDOptions.TargetFolder, filename);
 
-                
-
-
                 if (File.Exists(destination)) {
                     Logger.Log($"Destionation file already exists. Not downloading again: {destination}");
                     return;
@@ -61,10 +58,7 @@ namespace BingWallpaperDownloader.Logic {
 
                 Logger.Log($"Saving wallpaper as {destination}");
 
-
-
                 File.WriteAllBytes(destination, bytes);
-
 
                 Logger.Log("File download complete.");
             }
