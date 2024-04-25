@@ -46,6 +46,7 @@ namespace BingWallpaperDownloader.Logic {
                 }
 
                 if (!Directory.Exists(BWDOptions.TargetFolder)) {
+                    Logger.Log($"Directory doesn't exist, so creating it: {BWDOptions.TargetFolder}");
                     Directory.CreateDirectory(BWDOptions.TargetFolder);
                 }
 
