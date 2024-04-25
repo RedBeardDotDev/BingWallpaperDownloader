@@ -40,10 +40,16 @@ namespace BingWallpaperDownloader.Logic {
 
                 var destination = Path.Combine(BWDOptions.TargetFolder, filename);
 
+                
+
 
                 if (File.Exists(destination)) {
                     Logger.Log($"Destionation file already exists. Not downloading again: {destination}");
                     return;
+                }
+
+                if (!File.Exists(destination)) {
+                    Directory.CreateDirectory(destination);
                 }
 
                 Logger.Log($"Downloading wallpaper from: {url}");
@@ -54,6 +60,8 @@ namespace BingWallpaperDownloader.Logic {
                 //      "url": "/th?id=OHR.TrilliumOntario_EN-US5180679465_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp",
 
                 Logger.Log($"Saving wallpaper as {destination}");
+
+
 
                 File.WriteAllBytes(destination, bytes);
 
