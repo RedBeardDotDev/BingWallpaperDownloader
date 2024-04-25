@@ -6,6 +6,6 @@ services:
       - ./:/app/download
     environment:
       - LOG_TO_CONSOLE=true
-      - TARGET_DIR=/app
+      - TARGET_FOLDER=/app
       - CHECK_FREQUENCY_HOURS=24
       - LOG_CODE_VALUES=false

@@ -1,7 +1,9 @@
 ﻿using BingWallpaperDownloader.Logic;
 
 namespace BingWallpaperDownloader {
+
     public class Program {
+
         public static async Task Main(string[] args) {
             // initialise settings based on environment variables.
             BWDOptions.InitializeOptions();
