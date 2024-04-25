@@ -66,6 +66,9 @@ namespace BingWallpaperDownloader.Logic {
 
                     File.WriteAllBytes(destination, bytes);
 
+                    Logger.Log($"Saving wallpaper as latest.jpg");
+                    File.WriteAllBytes(Path.Combine(BWDOptions.TargetFolder, "latest.jpg"), bytes);
+                    
                     Logger.Log("File download complete.");
                 } catch (UnauthorizedAccessException) {
                     Logger.LogError($"There was a problem saving the file. Please check the target directory exists and you have access to it. On Linux under docker, the target directory might need to exist prior to the container being created.");
