@@ -1,12 +1,8 @@
 ---
 services:
-  bing-wallpaper-downloader:
-    build: .
-    user: "1000"
+  bingwallpaperdownloader:
+    image: redbearddotdev/bingwallpaperdownloader
     volumes:
-      - ./target:/app/target
+      - /opt/bingwallpaper:/app/target
     environment:
-      - LOG_TO_CONSOLE=true
-      - TARGET_FOLDER=/app/target
-      - CHECK_FREQUENCY_HOURS=24
-      - LOG_CODE_VALUES=false ''
+      - CHECK_FREQUENCY_HOURS=6
