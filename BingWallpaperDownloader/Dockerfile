@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
-USER app
+# was USER app, i.e. uid 1654
+USER 1000
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

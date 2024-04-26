@@ -45,5 +45,8 @@ The following variables can be used to control the application:
 
 ## Known Issues
 
-Currently, as mentioned [this](https://github.com/dotnet/dotnet-docker/discussions/4995#:~:text=The%20.NET%20Linux%20container%20images%20include%20a%20new%20non%2Droot%20user%20named%20app%20with%20the%20UID%201654.), 
-the target folder needs to be owned (or write-accessible) by UID 1654.
+~~Currently, as mentioned [this](https://devblogs.microsoft.com/dotnet/securing-containers-with-rootless/), 
+the target folder needs to be owned (or write-accessible) by UID 1654.~~
+
+The Dockerfile and docker-compose.yml have been updated to use uid:gid 1000:1000. At this stage the folder needs to pre-exist with that uid:gid.
+
