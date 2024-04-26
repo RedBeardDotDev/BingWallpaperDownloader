@@ -71,7 +71,7 @@ namespace BingWallpaperDownloader.Logic {
                     
                     Logger.Log("File download complete.");
                 } catch (UnauthorizedAccessException) {
-                    Logger.LogError($"There was a problem saving the file. Please check the target directory exists and you have access to it. On Linux under docker, the target directory might need to exist prior to the container being created.");
+                    Logger.LogError($"There was a problem saving the file. Please check the target directory exists and you have access to it. On Linux under docker, the target directory might need to exist and be owned by UID 1654, prior to the container being created.");
                     Environment.Exit(1);
                 }
             }

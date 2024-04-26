@@ -27,7 +27,6 @@ The following variables can be used to control the application:
 This is the sample response, like you might receive:
 
 ```json
-/*
  {
     "images": [
         {
@@ -56,5 +55,9 @@ This is the sample response, like you might receive:
         "walls": "Download this image. Use of this image is restricted to wallpaper only."
     }
 }
- */
 ```
+
+## Known Issues
+
+Currently due to [this](https://github.com/dotnet/dotnet-docker/discussions/4995#:~:text=The%20.NET%20Linux%20container%20images%20include%20a%20new%20non%2Droot%20user%20named%20app%20with%20the%20UID%201654.) issue, 
+the target folder needs to be owned (or write-accessible) by UID 1654.
