@@ -8,6 +8,7 @@ namespace BingWallpaperDownloader {
             // initialise settings based on environment variables.
             BWDOptions.InitializeOptions();
 
+            // Effectively an infinite loop, but less likely for Visual Studio to complain than using `while (true) {..}`
             while (!BWDOptions.StopRunning) {
                 Logger.Log("Starting a Download cycle..");
                 await WallpaperUtils.DownloadWallpaperAsync();

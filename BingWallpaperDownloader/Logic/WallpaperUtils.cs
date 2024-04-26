@@ -8,15 +8,17 @@ namespace BingWallpaperDownloader.Logic {
             Logger.Log("Requesting wallpaper");
             using var client = new HttpClient();
 
-            var source = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US";
+            var source = BWDOptions.WallpaperSourceUrl;
             var response = await client.GetStringAsync(source);
 
+            // If you don't get a response from the request
             if (string.IsNullOrEmpty(response)) {
                 Logger.Log("Response not received from wallpaper request");
                 return;
             }
 
             var wallpaperObject = JsonConvert.DeserializeObject<WallpaperResponse>(response);
+
 
             if (wallpaperObject == null) {
                 Logger.Log($"Unable to parse a valid wallpaper response for request: {response}");

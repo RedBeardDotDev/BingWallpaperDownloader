@@ -12,9 +12,12 @@
 
         public static bool LogCodeValues { get; set; } = false;
 
+        public static string WallpaperSourceUrl => "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US";
+
         public static void InitializeOptions() {
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TO_CONSOLE"))) {
-                if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_TO_CONSOLE"), out var log_to_console)) {
+            var str_log_to_console = Environment.GetEnvironmentVariable("LOG_TO_CONSOLE");
+            if (!string.IsNullOrEmpty(str_log_to_console)) {
+                if (bool.TryParse(str_log_to_console, out var log_to_console)) {
                     LogToConsole = log_to_console;
                 } else {
                     Logger.LogError($"Invalid option for LOG_TO_CONSOLE: {log_to_console}");
@@ -25,8 +28,7 @@
 
             // set target folder
             var target_folder = Environment.GetEnvironmentVariable("TARGET_FOLDER");
-
-            if (!string.IsNullOrEmpty(target_folder)) {
+                        if (!string.IsNullOrEmpty(target_folder)) {
                 var dir = new DirectoryInfo(target_folder);
 
                 if (dir.Exists) {
@@ -38,8 +40,9 @@
                 Logger.Log($"Environment variable TARGET_FOLDER not set. Using the value: {TargetFolder}");
             }
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS"))) {
-                if (int.TryParse(Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS"), out var check_frequency_hours)) {
+            var str_check_frequency_hours = Environment.GetEnvironmentVariable("CHECK_FREQUENCY_HOURS");
+            if (!string.IsNullOrEmpty(str_check_frequency_hours)) {
+                if (int.TryParse(str_check_frequency_hours, out var check_frequency_hours)) {
                     if (check_frequency_hours < 1 || check_frequency_hours > (30 * 24)) {
                         Logger.LogWarning($"CHECK_FREQUENCY HOURS should be in the range of 1..{30 * 24}");
                     } else {
@@ -50,8 +53,9 @@
                 Logger.Log($"Environment variable CHECK_FREQUENCY_HOURS not set. Using the value: {CheckFrequencyHours} hours");
             }
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_CODE_VALUES"))) {
-                if (bool.TryParse(Environment.GetEnvironmentVariable("LOG_CODE_VALUES"), out var log_code_values)) {
+            var str_log_code_values = Environment.GetEnvironmentVariable("LOG_CODE_VALUES");
+            if (!string.IsNullOrEmpty(str_log_code_values)) {
+                if (bool.TryParse(str_log_code_values, out var log_code_values)) {
                     LogCodeValues = log_code_values;
                 } else {
                     Logger.LogError($"Unable to get a valid value for LOG_CODE_VALUES: {log_code_values}");
