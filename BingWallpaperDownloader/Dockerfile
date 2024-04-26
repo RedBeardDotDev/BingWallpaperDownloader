@@ -16,6 +16,9 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./BingWallpaperDownloader.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+
+VOLUME /app/target
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "BingWallpaperDownloader.dll"]
