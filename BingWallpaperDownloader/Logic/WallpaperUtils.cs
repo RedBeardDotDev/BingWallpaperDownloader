@@ -19,7 +19,6 @@ namespace BingWallpaperDownloader.Logic {
 
             var wallpaperObject = JsonConvert.DeserializeObject<WallpaperResponse>(response);
 
-
             if (wallpaperObject == null) {
                 Logger.Log($"Unable to parse a valid wallpaper response for request: {response}");
                 return;
@@ -30,18 +29,21 @@ namespace BingWallpaperDownloader.Logic {
                 return;
             }
 
+            // Download each wallpaper image. There should usually only be one, butit is in a Json array.
             foreach (var image in wallpaperObject.Images) {
                 if (image.Url == null) {
                     Logger.LogError($"There is no url to download for the image: {image}");
                     continue;
                 }
 
+                // using .TrimStart('/') as it makes the string interpolation nicer
                 var url = new Uri($"https://bing.com/{image.Url.TrimStart('/')}");
                 var query = System.Web.HttpUtility.ParseQueryString(url.Query);
                 var filename = query["id"] ?? $"{Path.GetRandomFileName()}.jpg";
 
                 var destination = Path.Combine(BWDOptions.TargetFolder, filename);
 
+                // Don't need to overwrite
                 if (File.Exists(destination)) {
                     Logger.Log($"Destionation file already exists. Not downloading again: {destination}");
                     return;
